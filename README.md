@@ -4,7 +4,9 @@ A language agnostic C like preprocessor.
 
 ## name
 
-The name prAprocessor stands for "preprocessor for anything". It's intent is to provide C like preprocessor syntax for any language without modifying that language syntax. The directives, like #define, #ifdef etc. can be put in comments, thus no requirements other than possibility to write commands in a specific language.
+The name prAprocessor stands for "preprocessor for anything". It's intent is to provide C like preprocessor syntax for any language without modifying that language syntax. The directives, like #define, #ifdef etc. can be put in comments, thus no requirements other than possibility to write commands in a specific language.\
+\
+The name is also a kind of nerd joke - pra suggests its something old(school), just like C <3
 
 ## version
 
