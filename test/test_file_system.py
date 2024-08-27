@@ -25,7 +25,7 @@ import os
 import tempfile
 import shutil
 from unittest.mock import Mock
-from src.file_system import create_file_with_content, for_each_file_recursive
+from src.file_system import create_file_with_content, for_each_file_recursive, wipeout
 from src.log import log
 
 
@@ -140,3 +140,61 @@ class TestForEachFileRecursive(unittest.TestCase):
         self.assertEqual(mock_callback.call_count, 2)
         mock_callback.assert_any_call("Content of file 1", "/subdir_1/a/b/c/file1.txt")
         mock_callback.assert_any_call("Content of file 2", "/subdir_2/a/b/file2.txt")
+
+
+
+class TestWipeout(unittest.TestCase):
+    def setUp(self):
+        self.test_dir = tempfile.mkdtemp()
+
+
+    def tearDown(self):
+        shutil.rmtree(self.test_dir)
+
+
+    def test_wipeout_empty_directory(self):
+        wipeout(self.test_dir)
+        self.assertTrue(os.path.exists(self.test_dir))
+        self.assertTrue(os.path.isdir(self.test_dir))
+        self.assertEqual(os.listdir(self.test_dir), [])
+
+
+    def test_wipeout_with_files(self):
+        for i in range(3):
+            with open(os.path.join(self.test_dir, f"file{i}.txt"), "w") as f:
+                f.write("test content")
+
+        self.assertNotEqual(os.listdir(self.test_dir), [])
+        wipeout(self.test_dir)
+        self.assertTrue(os.path.exists(self.test_dir))
+        self.assertTrue(os.path.isdir(self.test_dir))
+        self.assertEqual(os.listdir(self.test_dir), [])
+
+
+    def test_wipeout_with_subdirectories(self):
+        for i in range(2):
+            subdir = os.path.join(self.test_dir, f"subdir{i}")
+            os.mkdir(subdir)
+            with open(os.path.join(subdir, "file.txt"), "w") as f:
+                f.write("test content")
+
+        self.assertNotEqual(os.listdir(self.test_dir), [])
+        wipeout(self.test_dir)
+        self.assertTrue(os.path.exists(self.test_dir))
+        self.assertTrue(os.path.isdir(self.test_dir))
+        self.assertEqual(os.listdir(self.test_dir), [])
+
+
+    def test_wipeout_with_mixed_content(self):
+        with open(os.path.join(self.test_dir, "file.txt"), "w") as f:
+            f.write("test content")
+        subdir = os.path.join(self.test_dir, "subdir")
+        os.mkdir(subdir)
+        with open(os.path.join(subdir, "subfile.txt"), "w") as f:
+            f.write("test content")
+
+        self.assertNotEqual(os.listdir(self.test_dir), [])
+        wipeout(self.test_dir)
+        self.assertTrue(os.path.exists(self.test_dir))
+        self.assertTrue(os.path.isdir(self.test_dir))
+        self.assertEqual(os.listdir(self.test_dir), [])

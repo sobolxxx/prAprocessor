@@ -22,7 +22,7 @@
 
 import os
 from .log import log
-
+import shutil
 
 def create_file_with_content(file_path, content):
     """
@@ -77,3 +77,18 @@ def for_each_file_recursive(root_folder, callback):
                 callback(content, relative_path)
             except Exception as e:
                 log.error(f"Crawler exception when processing {file_path}: {str(e)}")
+
+
+
+def wipeout(directory):
+    """
+        Remove all content of directory but keep the directory itself.
+        :param directory root directory to be wiped out
+    """
+    log.info(f"Wipeout of directory '{directory}'")
+    for item in os.listdir(directory):
+        item_path = os.path.join(directory, item)
+        if os.path.isfile(item_path):
+            os.remove(item_path)  # Remove files
+        elif os.path.isdir(item_path):
+            shutil.rmtree(item_path)  # Remove directories and their contents
