@@ -43,7 +43,7 @@ A.K.A quickstart guide.
 
 ### Flow
 
-First, always the config is loaded - the config sets up how the script will run further on.\
+First the config is loaded - the config sets up how the script will run further on.\
 \
 There are two possible modes - normal single run default mode, and watch mode.\
 \
