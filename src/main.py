@@ -21,9 +21,17 @@
 # SOFTWARE.
 
 
-from src.main import run_full
-from src.log import log
+from .file_system import for_each_file_recursive, create_file_with_content, wipeout
+from .processor import process_single_file
+from .config import Config
 
-if __name__ == '__main__':
-    log.setVerbose(True)
-    run_full()
+
+def handle_single_file_callback(file_content, relative_path):
+    new_content = process_single_file(file_content)
+    target_file = Config.target_dir + relative_path
+    create_file_with_content(target_file, new_content)
+
+
+def run_full():
+    wipeout(Config.target_dir)
+    for_each_file_recursive(Config.src_dir, handle_single_file_callback)

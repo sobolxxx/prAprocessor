@@ -21,9 +21,6 @@
 # SOFTWARE.
 
 
-from src.main import run_full
-from src.log import log
-
-if __name__ == '__main__':
-    log.setVerbose(True)
-    run_full()
+class Config:
+    src_dir = "example/in"
+    target_dir = "example/out"

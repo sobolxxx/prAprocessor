@@ -21,9 +21,13 @@
 # SOFTWARE.
 
 
-from src.main import run_full
-from src.log import log
+from .directives import handle_line
+from .context import context
 
-if __name__ == '__main__':
-    log.setVerbose(True)
-    run_full()
+def process_single_file(content):
+    to_ret = []
+    lines = content.split("\n")
+    for src_line in lines:
+        if not handle_line(src_line) and not context.ifdefed():
+            to_ret.append(src_line)
+    return "\n".join(to_ret)
