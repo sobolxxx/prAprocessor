@@ -1,0 +1,40 @@
+/* Body styling */
+body {
+  background-color: lightgray;
+  font-family: "Helvetica", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Heading styling */
+h1 {
+  color: darkblue;
+  font-size: 3em;
+  margin-top: 50px;
+}
+
+/* #ifndef PROD# */
+/* Button styling */
+non_prod_button {
+  background-color: coral;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+non_prod_button:hover {
+  background-color: darkorange;
+}
+
+/* #endif# */
+
+/* Footer styling */
+footer {
+  margin-top: 50px;
+  color: darkslategray;
+}
