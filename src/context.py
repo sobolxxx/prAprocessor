@@ -38,6 +38,7 @@ class Context:
         self.ifdef_stack = []
 
 
+    # todo on_file_start and on_file_end are not actually used - use them to verify if context is proper at the end of each file
     def on_file_start(self, filename):
         log.info(f"Starting new local context for file '{filename}'")
         self.currently_processed_filename = filename
