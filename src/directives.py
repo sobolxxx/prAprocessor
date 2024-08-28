@@ -57,6 +57,9 @@ def endif_handler(src_line_after_directive):
     context.pop_stack()
     return True
 
+#todo add else directive
+
+#todo add define directive
 
 # todo - make a possibility to overwrite directives in config file
 # for example: if someone wants to have %ifdef% instead of #ifdef for some reason
