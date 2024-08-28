@@ -30,7 +30,7 @@ from src.config import Config
 
 def run():
     working_dir = "./"
-    config_file = f"{working_dir}praprocessor.config.json"
+    config_file = ""
     watch_mode = False
 
     parser = argparse.ArgumentParser(description="prAprocessor CLI tool")
@@ -57,6 +57,8 @@ def run():
 
     if args.config:
         config_file = args.config
+    else:
+        config_file = os.path.join(working_dir, "praprocessor.config.json")
 
     if args.watch:
         log.info("Watch mode enabled.")
