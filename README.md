@@ -19,15 +19,15 @@ Let's say that in react jsx file we want to disable some specific parts of code 
 ```
 createRoot(document.getElementById("root")).render(
 
-  // #ifndef PROD
+  // #ifndef PROD#
   <StrictMode>
-    {/* #endif */}
+    {/* #endif# */}
 
     <App />
 
-    {/* #ifdef PROD */}
+    {/* #ifdef PROD# */}
   </StrictMode>
-  // #endif
+  // #endif#
 
 );
 ```
