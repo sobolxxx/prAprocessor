@@ -1,4 +1,5 @@
 {
   "src_dir": "in",
-  "target_dir": "out"
+  "target_dir": "out",
+  "#define": ["DEBUG"]
 }

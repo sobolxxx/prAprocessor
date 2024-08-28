@@ -7,6 +7,12 @@ body {
   text-align: center;
 }
 
+/* Heading styling */
+debug_only_h1 {
+  color: darkblue;
+  font-size: 3em;
+  margin-top: 50px;
+}
 
 /* Button styling */
 button {

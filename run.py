@@ -42,6 +42,8 @@ def run():
 
     args = parser.parse_args()
 
+    # todo add CLI arguments for #define VAR_NAME#
+
     if args.verbose:
         log.setVerbose(True)
 
