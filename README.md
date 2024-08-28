@@ -4,9 +4,17 @@ A language agnostic C like preprocessor.
 
 ## Name
 
-The name prAprocessor stands for "preprocessor for anything". It's intent is to provide C like preprocessor syntax for any language without modifying that language syntax. The directives, like #define, #ifdef etc. can be put in comments, thus no requirements other than possibility to write commands in a specific language.\
+The name prAprocessor stands for "preprocessor for anything". Its intent is to provide C like preprocessor syntax for any language without modifying that language syntax. The directives, like #define, #ifdef etc. can be put in comments, thus there is no requirement on the language that you use other than that this language supports some kind of comments (which I think is a standard since early Assembly).\
 \
 The name is also a kind of nerd joke - pra suggests its something old(school), just like C <3
+
+## What is it?
+Just in case you don't know what is a preprocessor (aka you learned to code in a modern programming language) - readme first -> https://en.wikipedia.org/wiki/Preprocessor \
+\
+Ok, but why would you actually want to use this? What is the use case?\
+For me a good use case is making clean deployments of web apps - don't know about you, but I write a lot of additional debug code. I don't want to deploy to production with this code, or in other words - before I make things public I want to remove some parts of code. I believe that's a better solution than doing if(!debug) { my_code() }. Good implementation of tree shaking can potentially remove such code in some cases. But this tool is designed to explicitely tag parts of code to be removed (with so called directives, like #ifdef (if defined) or #ifndef (if not defined) and remove them on the fly. Using multiple preprocessor logic you can create quite complex scenarios that cut out and inject some parts of code.\
+\
+At this point it is worth to note - preprocessor has its disadvantages, among which the biggest imho is - it is difficult to debug. So, don't overuse it. This is not a part of language you code in, and there is a good reason for that - so use it only for the purpose of cutting out some parts of code in specific scenarios.
 
 ## Version
 
