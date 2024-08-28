@@ -24,3 +24,7 @@
 class Config:
     src_dir = "example/in"
     target_dir = "example/out"
+
+    def load_config(working_dir, config_path):
+        # todo not implemented yet
+        print(f"loading config from {config_path}, working_dir={working_dir}")

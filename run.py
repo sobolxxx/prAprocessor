@@ -21,9 +21,56 @@
 # SOFTWARE.
 
 
-from src.main import run_full
+import argparse
+import os
+from src.main import run_full, run_watch
 from src.log import log
+from src.config import Config
+
+
+def run():
+    working_dir = "./"
+    config_file = f"{working_dir}praprocessor.config.json"
+    watch_mode = False
+
+    parser = argparse.ArgumentParser(description="prAprocessor CLI tool")
+    parser.add_argument("working_dir", nargs="?", default="./", help="Path to the working directory (default: ./)")
+    parser.add_argument("--config", help="Path to the configuration file")
+    parser.add_argument("--watch", action="store_true", help="Run in watch mode")
+    parser.add_argument("--verbose", action="store_true", help="Verbose output - show all info messages.")
+    parser.add_argument("--silent", action="store_true", help="Silent output - don't show errors.")
+
+    args = parser.parse_args()
+
+    if args.verbose:
+        log.setVerbose(True)
+
+    if args.silent:
+        log.setSilent(True)
+
+    log.info(f"Parsing arguments...")
+
+    if args.working_dir:
+        working_dir = os.path.abspath(args.working_dir)
+        if not os.path.isdir(working_dir):
+            log.fatal(f"The specified working directory '{working_dir}' does not exist or is not a directory.")
+
+    if args.config:
+        config_file = args.config
+
+    if args.watch:
+        log.info("Watch mode enabled.")
+        watch_mode = True
+ 
+    log.info(f"Loading config...")
+    Config.load_config(working_dir=working_dir, config_path=config_file)
+ 
+    log.info(f"Running...")
+    run_full()
+    if watch_mode:
+        run_watch()
+
 
 if __name__ == '__main__':
-    log.setVerbose(True)
-    run_full()
+    run()
+

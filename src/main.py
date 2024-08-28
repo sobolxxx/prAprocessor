@@ -35,3 +35,7 @@ def handle_single_file_callback(file_content, relative_path):
 def run_full():
     wipeout(Config.target_dir)
     for_each_file_recursive(Config.src_dir, handle_single_file_callback)
+
+def run_watch():
+    # todo not yet implemented
+    pass
