@@ -22,6 +22,7 @@
 
 import os
 from .log import log
+from .config import Config
 import shutil
 
 def create_file_with_content(file_path, content):
@@ -69,14 +70,21 @@ def for_each_file_recursive(root_folder, callback):
     """
     for dirpath, _, filenames in os.walk(root_folder):
         for filename in filenames:
+            _, extension = os.path.splitext(filename)
             file_path = os.path.join(dirpath, filename)
-            try:
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    content = file.read()
-                relative_path = file_path[len(root_folder):]
-                callback(content, relative_path)
-            except Exception as e:
-                log.error(f"Crawler exception when processing {file_path}: {str(e)}")
+            relative_path = file_path[len(root_folder):]
+            if extension in Config.ignore_file_ext:
+                target_file = Config.target_dir + relative_path
+                log.info(f"Ignoring file praprocessing {file_path} by extension {extension}")
+                shutil.copyfile(file_path, target_file)
+            else:
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as file:
+                        content = file.read()
+                    callback(content, relative_path)
+                except Exception as e:
+                    log.error(f"Crawler exception when processing {file_path}: {str(e)}")
+
 
 
 
