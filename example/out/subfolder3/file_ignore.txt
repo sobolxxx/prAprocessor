@@ -1,0 +1,5 @@
+// #ifdef DEBUG#
+
+this file should be ignored
+
+// #endif#
