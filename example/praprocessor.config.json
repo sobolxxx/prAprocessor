@@ -1,5 +1,6 @@
 {
   "src_dir": "in",
   "target_dir": "out",
-  "#define": ["DEBUG"]
+  "#define": ["DEBUG"],
+  "ignore_file_ext": ["txt"]
 }

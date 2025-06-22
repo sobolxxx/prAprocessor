@@ -32,6 +32,7 @@ class Config:
     src_dir = ""
     target_dir = ""
     working_dir = "./"
+    ignore_file_ext = []
 
     def load_config(working_dir, config_path):
         log.info(f"Setting working dir to {working_dir}")
@@ -55,6 +56,14 @@ class Config:
                         log.fatal("#define must be an array - wrong value in configuration file")
                     Config.assert_define_values(define_values)
                     Config.add_defines_to_global_context(define_values)
+
+                if "ignore_file_ext" in config:
+                    tmp = config['ignore_file_ext']
+                    if not isinstance(tmp, list):
+                        log.fatal("ignore_file_ext must be an array - wrong value in configuration file")
+                    else:
+                        Config.ignore_file_ext = tmp
+                        log.info(f"will ignore file extensions {Config.ignore_file_ext}")
 
         except FileNotFoundError:
             log.fatal(f"The file '{config_path}' was not found.")
